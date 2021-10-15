@@ -1,0 +1,20 @@
+name: sample
+
+on:
+  pull_request
+
+jobs:
+  demo:
+    runs-on: macos-latest
+    name: Sample demo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Label iOS version Info.plist
+        uses: neilkimmett/label-ios-version-gradle-properties-action@v1.0.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          gradle-properties-path: './src/android/gradle.properties'
+          changed-files: 'src/android/**'
+          label-format: 'Android {version}'
